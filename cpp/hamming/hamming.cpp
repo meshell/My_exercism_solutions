@@ -12,20 +12,13 @@ unsigned compute(const std::string& sequence_1, const std::string& sequence_2)
     {
         throw std::domain_error("Sequences are not of same length");
     }
-    auto it_seq1 = sequence_1.cbegin();
-    auto it_seq2 = sequence_2.cbegin();
-    auto count = 0u;
-    while (it_seq1 != sequence_1.cend())
+
+    auto hamming_distance = 0u;
+    for (auto i = 0; i != sequence_1.size(); ++i)
     {
-        const auto mismatch_it = std::mismatch(it_seq1, sequence_1.cend(), it_seq2);
-        it_seq1 = mismatch_it.first;
-        it_seq2 = mismatch_it.second+1;
-        if (it_seq1 != sequence_1.cend())
-        {
-            ++count;
-            ++it_seq1;
-        }
+        hamming_distance += (sequence_1.at(i) == sequence_2.at(i)) ? 0 : 1;
     }
-    return count;
+
+    return hamming_distance;
 }
 }
