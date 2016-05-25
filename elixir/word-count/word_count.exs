@@ -6,16 +6,10 @@ defmodule Words do
   """
   @spec count(String.t) :: map
   def count(sentence) do
-    sentence = String.replace(sentence, ~r/[\p{Po}\p{S}]/u, " ")
-    sentence = String.replace(sentence, ~r/["_"]/u, " ")
-    count_from_list(String.split(sentence, " ", trim: true), %{})
-  end
-
-  defp count_from_list([head|tail], result) do
-    count_from_list(tail, Map.update(result, String.downcase(head), 1, &(&1 + 1)))
-  end
-
-  defp count_from_list([], result) do
-    result
+    sentence
+    |> String.replace(~r/[\p{Po}\p{S}]/u, " ")
+    |> String.replace(~r/["_"]/u, " ")
+    |> String.split(" ", trim: true)
+    |> Enum.reduce(%{}, fn (word, result) -> Map.update(result, String.downcase(word), 1, &(&1 + 1)) end )
   end
 end
