@@ -11,13 +11,11 @@ std::map<std::string, int> words(const std::string& phrase)
     std::map<std::string, int> result;
     std::vector<std::string> strings;
 
-    std::string lower_case_phrase;
-    std::transform(phrase.cbegin(),
-                   phrase.cend(),
-                   std::back_inserter(lower_case_phrase),
-                   [](const char& c) { return std::tolower(c);});
+    const auto lower_case_phrase = boost::to_lower_copy(phrase);
+    boost::split(strings,
+                 lower_case_phrase,
+                 ((not boost::is_any_of("'") && boost::is_punct()) || boost::is_space()));
 
-    boost::split(strings, lower_case_phrase, ((not boost::is_any_of("'") && boost::is_punct()) || boost::is_space()));
     for(auto& str : strings)
     {
         if (str.front() == '\'')
@@ -30,15 +28,7 @@ std::map<std::string, int> words(const std::string& phrase)
         }
         if (not str.empty())
         {
-            auto elementExists = result.find(str);
-            if (elementExists != std::end(result))
-            {
-                elementExists->second += 1;
-            }
-            else
-            {
-                result.emplace(std::make_pair(str, 1));
-            }
+            result[str]++;
         }
     }
     return result;
