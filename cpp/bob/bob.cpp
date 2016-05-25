@@ -1,37 +1,21 @@
 #include "bob.h"
-#include <locale>
-#include <algorithm>
+#include <regex>
 
 namespace {
-bool is_silent(std::string text)
+bool is_silent(const std::string& text)
 {
-    text.erase(std::remove(std::begin(text),
-                           std::end(text), ' '),
-               std::end(text));
-    return text.empty();
+    return std::regex_match(text, std::regex{"[[:space:]]*"});
 }
 
-bool is_yelling(std::string text)
+bool is_yelling(const std::string& text)
 {
-    text.erase(std::remove_if(std::begin(text),
-                              std::end(text),
-                              [](const char& c){
-                                  return not isalpha(c);
-                              }),
-               std::end(text));
-    return ((not text.empty()) &&
-            (std::all_of(text.cbegin(),
-                         text.cend(),
-                         [](const char& c){
-                             return (isupper(c));
-                         })));
+    const auto text_with_only_letters = std::regex_replace(text, std::regex{"[^[:alpha:]]"}, "");
+    return std::regex_match(text_with_only_letters, std::regex{"[[:upper:]]+"});
 }
 
-bool is_question(std::string text)
+bool is_question(const std::string& text)
 {
-    const auto last_question_mark = text.find_last_of('?');
-    return ((last_question_mark != std::string::npos) &&
-            (last_question_mark >= text.find_last_not_of(' ')));
+    return std::regex_match(text, std::regex{".*[?][[:space:]]*"});
 }
 }
 
