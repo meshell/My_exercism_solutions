@@ -31,17 +31,16 @@ anagram::anagram (const std::string & str)
 
 anagram::anagram_list_t anagram::matches (anagram::anagram_list_t canditates) const
 {
-    return std::accumulate(canditates.cbegin(),
-                           canditates.cend(),
-                           anagram_list_t{},
-                           [&] (anagram_list_t result, const std::string & candidate)
-                           {
-                               if (is_anagram_of(candidate, init_str))
-                               {
-                                   result.emplace_back(candidate);
-                               }
-                               return result;
-                           });
+    anagram_list_t anagrams;
+
+    std::copy_if(canditates.cbegin(),
+                 canditates.cend(),
+                 std::back_inserter(anagrams),
+                 [&] (const std::string & candidate)
+                 {
+                     return is_anagram_of(candidate, init_str);
+                 });
+    return anagrams;
 }
 
 }
