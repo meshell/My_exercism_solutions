@@ -1,8 +1,7 @@
 #include "hamming.h"
 
 #include <algorithm>
-#include <iostream>
-#include <c++/stdexcept>
+#include <stdexcept>
 
 namespace hamming
 {
@@ -12,13 +11,7 @@ unsigned compute(const std::string& sequence_1, const std::string& sequence_2)
     {
         throw std::domain_error("Sequences are not of same length");
     }
-
-    auto hamming_distance = 0u;
-    for (auto i = 0; i != sequence_1.size(); ++i)
-    {
-        hamming_distance += (sequence_1.at(i) == sequence_2.at(i)) ? 0 : 1;
-    }
-
-    return hamming_distance;
+    return std::inner_product(sequence_1.cbegin(), sequence_1.cend(), sequence_2.cbegin(), 0,
+                              std::plus<char>(), std::not_equal_to<char>());
 }
 }
