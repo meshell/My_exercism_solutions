@@ -12,11 +12,12 @@ class anagram
 public:
     using anagram_list_t = std::vector<std::string>;
 
-    anagram (const std::string &str);
+    anagram (const std::string & str);
+
     anagram_list_t matches (anagram_list_t possible_anagrams) const;
 
 private:
-    std::string init_str;
+    const std::string init_str;
 };
 
 }
