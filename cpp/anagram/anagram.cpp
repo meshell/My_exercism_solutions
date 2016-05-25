@@ -70,7 +70,7 @@ anagram::anagram (const std::string & base)
 anagram::anagram_list_t anagram::matches (anagram::anagram_list_t canditates) const
 {
     return filter(canditates,
-                  [&] (const std::string & candidate)
+                  [this] (const std::string & candidate)
                   {
                       return pimpl->is_anagram(candidate);
                   });
