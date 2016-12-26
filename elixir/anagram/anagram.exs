@@ -4,13 +4,13 @@ defmodule Anagram do
   """
   @spec match(String.t, [String.t]) :: [String.t]
   def match(base, candidates) do
-    is_anagram_of_base = fn candidate -> anagrams(base, candidate) end
+    is_anagram_of_base? = fn candidate -> anagrams?(base, candidate) end
     candidates
-    |> Enum.filter(fn (candidate) -> is_anagram_of_base.(candidate) end)
+    |> Enum.filter(fn (candidate) -> is_anagram_of_base?.(candidate) end)
   end
 
-  @spec anagrams(String.t, String.t) :: boolean
-  defp anagrams(base, candidate) do
+  @spec anagrams?(String.t, String.t) :: boolean
+  defp anagrams?(base, candidate) do
     sorted = fn (str) -> String.to_char_list(str) |> Enum.sort end
 
     base_lowercase = String.downcase(base)

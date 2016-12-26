@@ -5,13 +5,10 @@ defmodule Acronym do
   """
   @spec abbreviate(string) :: String.t()
   def abbreviate(string) do
+    get_acronym_letters_from_word = &(String.upcase(String.at(&1,0)) <> String.replace(String.slice(&1, 1..-1), ~r/[^A-Z]/, ""))
     string |>
     String.split(~r/[-|\s]/) |>
-    Enum.map(&get_acronym_letters_from_word/1) |>
+    Enum.map(get_acronym_letters_from_word) |>
     Enum.join()
-  end
-
-  defp get_acronym_letters_from_word(string) do
-    String.upcase(String.at(string,0)) <> String.replace(String.slice(string, 1..-1), ~r/[^A-Z]/, "")
   end
 end

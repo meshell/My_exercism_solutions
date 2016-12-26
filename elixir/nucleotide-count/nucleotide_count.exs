@@ -16,7 +16,7 @@ defmodule NucleotideCount do
   def count(strand, nucleotide) do
     cond do
       ! Enum.member?(@nucleotides, nucleotide) -> raise ArgumentError
-      ! validate_strand(strand) -> raise ArgumentError
+      ! validate_strand?(strand) -> raise ArgumentError
       true -> strand |> Enum.count(&(&1 == nucleotide))
     end
   end
@@ -32,7 +32,7 @@ defmodule NucleotideCount do
   """
   @spec histogram([char]) :: map
   def histogram(strand) do
-    if validate_strand(strand) do
+    if validate_strand?(strand) do
       Enum.reduce(@nucleotides, %{}, fn(n, acc) ->
         Map.put(acc, n, count(strand, n)) end)
     else
@@ -40,7 +40,7 @@ defmodule NucleotideCount do
     end
   end
 
-  def validate_strand(strand) do
+  def validate_strand?(strand) do
     ! Regex.match?(~r/[^ATCG]+/u, to_string(strand))
   end
 end
