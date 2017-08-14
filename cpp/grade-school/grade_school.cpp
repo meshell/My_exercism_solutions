@@ -7,7 +7,7 @@
 
 namespace grade_school {
 
-    roster_t school::roster() const {
+    const roster_t& school::roster() const {
         return m_roster;
     }
 

@@ -18,7 +18,7 @@ namespace grade_school {
     class school {
     public:
 
-        roster_t roster();
+        const roster_t& roster() const;
 
         void add(const std::string& name, grade_t grade);
 
