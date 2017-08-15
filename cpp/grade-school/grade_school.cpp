@@ -18,8 +18,7 @@ namespace grade_school {
     }
 
     student_list_t school::grade(grade_t grade) const {
-        const auto it = m_roster.find(grade);
-        if (it != m_roster.end()) {
+        if (const auto it = m_roster.find(grade); it != m_roster.end()) {
             return it->second;
         }
         return {};
