@@ -7,7 +7,7 @@
 namespace {
 
 template<typename T>
-bool is_multiple_of_any(T value, const std::vector<T>& multiples) {
+inline bool is_multiple_of_any(T value, const std::vector<T>& multiples) {
     const auto multiple_of = [value](const T mult) {
         return value % mult == 0;
     };
@@ -15,15 +15,8 @@ bool is_multiple_of_any(T value, const std::vector<T>& multiples) {
                        std::end(multiples),
                        multiple_of);
 }
-
-template<typename T>
-std::vector<T> generate_sequence(T limit) {
-    std::vector<T> sequence(limit);
-    std::iota(std::begin(sequence), std::end(sequence), 0);
-    return sequence;
 }
 
-}
 namespace sum_of_multiples {
 
 unsigned to(std::vector<unsigned> multiples, unsigned limit) {
@@ -31,13 +24,11 @@ unsigned to(std::vector<unsigned> multiples, unsigned limit) {
     const auto multiple_of_any = [&multiples](const auto& v) {
         return is_multiple_of_any(v, multiples);
     };
-    const auto sequence = generate_sequence(limit);
-    return std::accumulate(std::begin(sequence),
-                           std::end(sequence),
-                           0u,
-                           [=](const auto& accu, const auto& v)
-                           {
-                              return multiple_of_any(v) ? accu + v: accu;
-                           });
+    unsigned sum = 0;
+    for (unsigned i = 0; i < limit; ++i){
+        sum += multiple_of_any(i) ? i : 0;
+    }
+
+    return sum;
 }
 };
