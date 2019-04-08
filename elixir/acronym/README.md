@@ -1,23 +1,19 @@
 # Acronym
 
-Convert a long phrase to its acronym
+Convert a phrase to its acronym.
 
 Techies love their TLA (Three Letter Acronyms)!
 
 Help generate some jargon by writing a program that converts a long name
 like Portable Network Graphics to its acronym (PNG).
 
-
 ## Running tests
 
 Execute the tests with:
 
 ```bash
-$ elixir bob_test.exs
+$ elixir acronym_test.exs
 ```
-
-(Replace `bob_test.exs` with the name of the test file.)
-
 
 ### Pending tests
 
@@ -42,9 +38,13 @@ Or, you can enable all the tests by commenting out the
 # ExUnit.configure exclude: :pending, trace: true
 ```
 
-For more detailed information about the Elixir track, please
-see the [help page](http://exercism.io/languages/elixir).
+If you're stuck on something, it may help to look at some of
+the [available resources](https://exercism.io/tracks/elixir/resources)
+out there where answers might be found.
 
 ## Source
 
-Julien Vanier [view source](https://github.com/monkbroc)
+Julien Vanier [https://github.com/monkbroc](https://github.com/monkbroc)
+
+## Submitting Incomplete Solutions
+It's possible to submit an incomplete solution so you can see how others have completed the exercise.

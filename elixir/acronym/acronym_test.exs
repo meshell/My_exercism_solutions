@@ -1,9 +1,9 @@
 if !System.get_env("EXERCISM_TEST_EXAMPLES") do
-  Code.load_file("acronym.exs")
+  Code.load_file("acronym.exs", __DIR__)
 end
 
-ExUnit.start
-ExUnit.configure exclude: :pending, trace: true
+ExUnit.start()
+ExUnit.configure(exclude: :pending, trace: true)
 
 defmodule AcronymTest do
   use ExUnit.Case
@@ -24,7 +24,7 @@ defmodule AcronymTest do
     assert Acronym.abbreviate("First in, First out") === "FIFO"
   end
 
-  test "produces acronyms ignoring punctuation and casing" do
+  test "it produces acronyms ignoring punctuation and casing" do
     assert Acronym.abbreviate("Complementary Metal-Oxide semiconductor") === "CMOS"
   end
 end
